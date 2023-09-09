@@ -42,4 +42,18 @@ app.post("/", (req, res) => {
       res.send({url:url,srt:srt})
     })
   });
+app.post("/nunu", (req, res) => {
+    console.log("post!");
+    let body = "";
+    req.on("data", function (data) {
+      body = body + data;
+    });
+    req.on("end", function() {
+      let postInfo = body;
+      const t = EvalDecode(postInfo)
+      let url = t.split('source: "')[1].split('"')[0]
+      
+      res.send({url:url})
+    })
+  });
 app.listen(3000)
